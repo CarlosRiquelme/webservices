@@ -1,0 +1,7 @@
+Crear base datos llamados de la siguiente forma 
+-Hospital1
+-Hospital2
+-Hospital3
+-HospitalMaestro
+
+Utilizar sus respectivos backup para restaurar.
