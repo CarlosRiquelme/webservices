@@ -7,6 +7,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.ws.WebServiceRef;
+import webservices.HistorialClinico;
 import webservices.Medico;
 import webservices.WsGestionUsuarios_Service;
 
@@ -21,8 +23,8 @@ import webservices.WsGestionUsuarios_Service;
  *
  * @author toshiba
  */
-@WebServlet(name = "SAutentificacion", urlPatterns = {"/SAutentificacion"})
-public class SAutentificacion extends HttpServlet {
+@WebServlet(name = "SConsultaHistorial", urlPatterns = {"/SConsultaHistorial"})
+public class SConsultaHistorial extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/CentralHospital/WsGestionUsuarios.wsdl")
     private WsGestionUsuarios_Service service;
 
@@ -38,24 +40,17 @@ public class SAutentificacion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String id2=request.getParameter("txtcodigo");
-        String pass=request.getParameter("txtPass");
-        String hospital=request.getParameter("cboHospital");
-        int id=Integer.parseInt(id2);
-        Medico medico= validarMedico(id, pass, hospital);
-        
-        if (medico !=null){
-            HttpSession session=request.getSession();
-            session.setAttribute("validMedico", medico);
-            session.setAttribute("hospital", hospital);
-            response.sendRedirect("ventanaMedico.jsp");
-        }else{
-            response.sendRedirect("index.jsp");
-        }
+   
+        HttpSession session=request.getSession();
+        Medico medico= (Medico) session.getAttribute("validMedico");
+        String hospital=(String) session.getAttribute("hospital");
+        String fechaInicio=request.getParameter("txtfecha_inicio");
+        String fechaFin=request.getParameter("txtfecha_fin");
+        List<HistorialClinico> historial=historialEntreFechas(fechaInicio,fechaFin,hospital);
+        session.setAttribute("listaEntreFecha", historial);
+        response.sendRedirect("listado_entreFechas.jsp");
         
     }
-    
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -96,15 +91,11 @@ public class SAutentificacion extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private Medico validarMedico(int id, java.lang.String password, java.lang.String hospital) {
+    private java.util.List<webservices.HistorialClinico> historialEntreFechas(java.lang.String fechaInicio, java.lang.String fechaFin, java.lang.String hospital) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         webservices.WsGestionUsuarios port = service.getWsGestionUsuariosPort();
-        return port.validarMedico(id, password, hospital);
+        return port.historialEntreFechas(fechaInicio, fechaFin, hospital);
     }
-    
-    
-    
-    
 
 }

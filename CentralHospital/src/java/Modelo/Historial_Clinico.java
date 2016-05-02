@@ -15,7 +15,7 @@ public class Historial_Clinico {
     private Integer id;
     private Integer paciente_id;
     private Integer medico_id;
-    private Integer hospital_id;
+    private String hospital;
     private String fecha;
     private String diagnostico;
     private String sintomas;
@@ -45,13 +45,14 @@ public class Historial_Clinico {
         this.medico_id = medico_id;
     }
 
-    public Integer getHospital_id() {
-        return hospital_id;
+    public String getHospital() {
+        return hospital;
     }
 
-    public void setHospital_id(Integer hospital_id) {
-        this.hospital_id = hospital_id;
+    public void setHospital(String hospital) {
+        this.hospital = hospital;
     }
+
 
     public String getFecha() {
         return fecha;

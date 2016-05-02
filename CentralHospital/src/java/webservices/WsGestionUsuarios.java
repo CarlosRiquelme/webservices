@@ -50,18 +50,26 @@ public class WsGestionUsuarios {
      */
     @WebMethod(operationName = "consultaPaciente")
     public List<Historial_Clinico> consultaPaciente(@WebParam(name = "id") String id, @WebParam(name = "medico") Medico medico) {
-         List<Historial_Clinico> historial=null;
-        try {
-            ConsultasDB consulta =new ConsultasDB();
-            historial=consulta.consultaHistorial(id, medico);
-            
-            
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(WsGestionUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return historial;
+         List<Historial_Clinico> historial;
+         ConsultasDB consulta =new ConsultasDB();
+         String hospital=(String)medico.getHospital();
+         historial=consulta.consultaHistorial(id, medico,hospital);
+              
+         return historial;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "historialEntreFechas")
+    public List<Historial_Clinico> historialEntreFechas(@WebParam(name = "fechaInicio") String fechaInicio, @WebParam(name = "fechaFin") String fechaFin, @WebParam(name = "hospital") String hospital) {
+         List<Historial_Clinico> historial;
+         ConsultasDB consulta =new ConsultasDB();
+         historial=consulta.consultaHistorialFechas(fechaInicio, fechaFin,hospital);
+         return historial;
+    }
+    
+    
 
   
 }
