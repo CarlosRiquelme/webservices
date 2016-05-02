@@ -2,6 +2,7 @@
 package webservices;
 
 import java.util.List;
+import javax.jws.Oneway;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -27,18 +28,12 @@ public interface WsGestionUsuarios {
 
     /**
      * 
-     * @param hospital
-     * @return
-     *     returns webservices.ActualizacionHospital
      */
-    @WebMethod(operationName = "hospital_actualizacion")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "hospital_actualizacion", targetNamespace = "http://webservices/", className = "webservices.HospitalActualizacion")
-    @ResponseWrapper(localName = "hospital_actualizacionResponse", targetNamespace = "http://webservices/", className = "webservices.HospitalActualizacionResponse")
-    @Action(input = "http://webservices/WsGestionUsuarios/hospital_actualizacionRequest", output = "http://webservices/WsGestionUsuarios/hospital_actualizacionResponse")
-    public ActualizacionHospital hospitalActualizacion(
-        @WebParam(name = "hospital", targetNamespace = "")
-        String hospital);
+    @WebMethod(operationName = "llamar_automatico")
+    @Oneway
+    @RequestWrapper(localName = "llamar_automatico", targetNamespace = "http://webservices/", className = "webservices.LlamarAutomatico")
+    @Action(input = "http://webservices/WsGestionUsuarios/llamar_automatico")
+    public void llamarAutomatico();
 
     /**
      * 
@@ -57,6 +52,21 @@ public interface WsGestionUsuarios {
         String id,
         @WebParam(name = "medico", targetNamespace = "")
         Medico medico);
+
+    /**
+     * 
+     * @param hospital
+     * @return
+     *     returns webservices.ActualizacionHospital
+     */
+    @WebMethod(operationName = "hospital_actualizacion")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "hospital_actualizacion", targetNamespace = "http://webservices/", className = "webservices.HospitalActualizacion")
+    @ResponseWrapper(localName = "hospital_actualizacionResponse", targetNamespace = "http://webservices/", className = "webservices.HospitalActualizacionResponse")
+    @Action(input = "http://webservices/WsGestionUsuarios/hospital_actualizacionRequest", output = "http://webservices/WsGestionUsuarios/hospital_actualizacionResponse")
+    public ActualizacionHospital hospitalActualizacion(
+        @WebParam(name = "hospital", targetNamespace = "")
+        String hospital);
 
     /**
      * 

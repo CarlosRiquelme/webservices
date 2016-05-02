@@ -5,6 +5,7 @@
  */
 package webservices;
 
+import Automatizar.Programacion;
 import Connection.ActualizarService;
 import Connection.ConsultasDB;
 import Modelo.Actualizacion;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.jws.Oneway;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -99,6 +101,24 @@ public class WsGestionUsuarios {
         Actualizacion_Hospital act_hospital=act.ultimaActualizacion(hospital);
         return act_hospital;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "llamar_automatico")
+    @Oneway
+    public void llamar_automatico(@WebParam(name = "hospital") String hospital) {
+        
+        try {
+            new Programacion().iniciarTarea();
+                  System.out.println("hola1");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+
+   
     
     
     

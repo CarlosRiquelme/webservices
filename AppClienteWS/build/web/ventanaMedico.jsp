@@ -68,6 +68,18 @@
             </table>
 
         </form>
+             </form>
+         <h3>Actualizacion Automatica</h3>
+        <form action="SActualizarAutomatica">
+           <table border="0">
+               
+                <tr>
+                    <td><input type="submit" value="Llamar" name="btnLlamar" /></td>
+
+                </tr>
+            </table>
+
+        </form>
         
         
     </body>

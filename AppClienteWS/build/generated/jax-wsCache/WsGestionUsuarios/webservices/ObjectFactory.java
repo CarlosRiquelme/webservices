@@ -30,6 +30,7 @@ public class ObjectFactory {
     private final static QName _Actualizar_QNAME = new QName("http://webservices/", "actualizar");
     private final static QName _ConsultaPacienteResponse_QNAME = new QName("http://webservices/", "consultaPacienteResponse");
     private final static QName _ActualizarResponse_QNAME = new QName("http://webservices/", "actualizarResponse");
+    private final static QName _LlamarAutomatico_QNAME = new QName("http://webservices/", "llamar_automatico");
     private final static QName _ValidarMedicoResponse_QNAME = new QName("http://webservices/", "validarMedicoResponse");
     private final static QName _HospitalActualizacion_QNAME = new QName("http://webservices/", "hospital_actualizacion");
     private final static QName _HistorialEntreFechas_QNAME = new QName("http://webservices/", "historialEntreFechas");
@@ -72,6 +73,14 @@ public class ObjectFactory {
      */
     public ValidarMedicoResponse createValidarMedicoResponse() {
         return new ValidarMedicoResponse();
+    }
+
+    /**
+     * Create an instance of {@link LlamarAutomatico }
+     * 
+     */
+    public LlamarAutomatico createLlamarAutomatico() {
+        return new LlamarAutomatico();
     }
 
     /**
@@ -206,6 +215,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservices/", name = "actualizarResponse")
     public JAXBElement<ActualizarResponse> createActualizarResponse(ActualizarResponse value) {
         return new JAXBElement<ActualizarResponse>(_ActualizarResponse_QNAME, ActualizarResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link LlamarAutomatico }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservices/", name = "llamar_automatico")
+    public JAXBElement<LlamarAutomatico> createLlamarAutomatico(LlamarAutomatico value) {
+        return new JAXBElement<LlamarAutomatico>(_LlamarAutomatico_QNAME, LlamarAutomatico.class, null, value);
     }
 
     /**

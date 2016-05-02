@@ -4,17 +4,20 @@
 <xsd:import namespace="http://webservices/" schemaLocation="http://localhost:8080/CentralHospital/WsGestionUsuarios?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="hospital_actualizacion">
-<part name="parameters" element="tns:hospital_actualizacion"/>
-</message>
-<message name="hospital_actualizacionResponse">
-<part name="parameters" element="tns:hospital_actualizacionResponse"/>
+<message name="llamar_automatico">
+<part name="parameters" element="tns:llamar_automatico"/>
 </message>
 <message name="consultaPaciente">
 <part name="parameters" element="tns:consultaPaciente"/>
 </message>
 <message name="consultaPacienteResponse">
 <part name="parameters" element="tns:consultaPacienteResponse"/>
+</message>
+<message name="hospital_actualizacion">
+<part name="parameters" element="tns:hospital_actualizacion"/>
+</message>
+<message name="hospital_actualizacionResponse">
+<part name="parameters" element="tns:hospital_actualizacionResponse"/>
 </message>
 <message name="actualizar">
 <part name="parameters" element="tns:actualizar"/>
@@ -35,13 +38,16 @@
 <part name="parameters" element="tns:validarMedicoResponse"/>
 </message>
 <portType name="WsGestionUsuarios">
-<operation name="hospital_actualizacion">
-<input wsam:Action="http://webservices/WsGestionUsuarios/hospital_actualizacionRequest" message="tns:hospital_actualizacion"/>
-<output wsam:Action="http://webservices/WsGestionUsuarios/hospital_actualizacionResponse" message="tns:hospital_actualizacionResponse"/>
+<operation name="llamar_automatico">
+<input wsam:Action="http://webservices/WsGestionUsuarios/llamar_automatico" message="tns:llamar_automatico"/>
 </operation>
 <operation name="consultaPaciente">
 <input wsam:Action="http://webservices/WsGestionUsuarios/consultaPacienteRequest" message="tns:consultaPaciente"/>
 <output wsam:Action="http://webservices/WsGestionUsuarios/consultaPacienteResponse" message="tns:consultaPacienteResponse"/>
+</operation>
+<operation name="hospital_actualizacion">
+<input wsam:Action="http://webservices/WsGestionUsuarios/hospital_actualizacionRequest" message="tns:hospital_actualizacion"/>
+<output wsam:Action="http://webservices/WsGestionUsuarios/hospital_actualizacionResponse" message="tns:hospital_actualizacionResponse"/>
 </operation>
 <operation name="actualizar">
 <input wsam:Action="http://webservices/WsGestionUsuarios/actualizarRequest" message="tns:actualizar"/>
@@ -58,7 +64,13 @@
 </portType>
 <binding name="WsGestionUsuariosPortBinding" type="tns:WsGestionUsuarios">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="hospital_actualizacion">
+<operation name="llamar_automatico">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+</operation>
+<operation name="consultaPaciente">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -67,7 +79,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="consultaPaciente">
+<operation name="hospital_actualizacion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
