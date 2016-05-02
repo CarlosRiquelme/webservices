@@ -6,6 +6,7 @@
 package Connection;
 
 import Modelo.Actualizacion;
+import Modelo.Actualizacion_Hospital;
 import Modelo.Historial_Clinico;
 import Modelo.Hospital;
 import Modelo.Medico;
@@ -116,7 +117,7 @@ public class ActualizarService {
                     s.executeUpdate(consulta);
                 }
                 Date myDate = new Date();
-                String fecha =new SimpleDateFormat("dd-MM-yyyy").format(myDate);
+                String fecha =myDate.toString();
                 consulta="INSERT INTO actualizacion (fecha) VALUES ('"+fecha+ "');";
                 s.executeUpdate(consulta);
                 time_end = System.currentTimeMillis();
@@ -124,6 +125,8 @@ public class ActualizarService {
                 otro = Integer.valueOf(String.valueOf(tiempo));
                 long timeout2=Long.parseLong(timeout);
                 int otro2=Integer.valueOf(String.valueOf(timeout2));
+                System.out.println("tiempo total -->"+tiempo);
+                System.out.println("tiempo estimado -->"+timeout);
                 rango(otro,otro2);
                 miConexion.commit();
                 miConexionMaestro.commit();
@@ -148,7 +151,7 @@ public class ActualizarService {
         
         String servidor="jdbc:postgresql://localhost/HospitalMaestro";
         Date myDate = new Date();
-        String fecha =new SimpleDateFormat("dd-MM-yyyy").format(myDate);
+        String fecha =myDate.toString();
         System.out.println("fecha "+fecha);
         Actualizacion act=null;
         Connection miConexion = ConnectionDB.GetConnection(servidor);
@@ -180,5 +183,47 @@ public class ActualizarService {
         }
         return lista;
     }
-    
+     
+     public Actualizacion_Hospital ultimaActualizacion(String hospital){
+        
+        String servidor=""; 
+        if(hospital.equals("hospital1")){
+            servidor = "jdbc:postgresql://localhost/Hospital1";
+            System.out.println("soy servido 1");
+        }
+        if(hospital.equals("hospital2")){
+            servidor = "jdbc:postgresql://localhost/Hospital2";
+        }
+        if(hospital.equals("hospital3")){
+            servidor = "jdbc:postgresql://localhost/Hospital3";
+        }
+        ArrayList<Historial_Clinico> lista = new ArrayList(); 
+        
+        Connection miConexion = ConnectionDB.GetConnection(servidor);
+                
+        System.out.println("Mi conexion: "+miConexion);
+        Actualizacion_Hospital act=null; 
+        if(miConexion != null){
+           
+            try {
+                
+                Statement s = miConexion.createStatement();
+                String consulta="SELECT *  FROM  actualizacion where fecha = ( SELECT MAX(fecha) FROM actualizacion);";
+                ResultSet rs = s.executeQuery (consulta);
+                
+                while (rs.next()){
+                    
+                    act=new Actualizacion_Hospital();
+                    act.setId(rs.getInt("id"));
+                    act.setFecha(rs.getString("fecha"));
+                    
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsultasDB.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        return act;
+     }
 }
+

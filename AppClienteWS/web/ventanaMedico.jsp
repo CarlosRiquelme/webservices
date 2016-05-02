@@ -15,7 +15,13 @@
         <h1>Bienvenido
             <jsp:useBean id="validMedico" scope="session" class="webservices.Medico" />
             <jsp:getProperty name="validMedico" property="nombre" />
+            -->
+            <jsp:getProperty name="validMedico" property="hospital" />
         </h1>
+        <h2>Ultima actualizacion -->
+            <jsp:useBean id="actualizacionHospital" scope="session" class="webservices.ActualizacionHospital" />
+            <jsp:getProperty name="actualizacionHospital" property="fecha" />
+        </h2>
         <h2>Consulta de Historia Clinica del Paciente</h2>
         <form action="SConsultaPaciente">
            <table border="0">

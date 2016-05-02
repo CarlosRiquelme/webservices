@@ -8,6 +8,7 @@ package webservices;
 import Connection.ActualizarService;
 import Connection.ConsultasDB;
 import Modelo.Actualizacion;
+import Modelo.Actualizacion_Hospital;
 import Modelo.Historial_Clinico;
 import Modelo.Medico;
 import java.sql.SQLException;
@@ -88,6 +89,18 @@ public class WsGestionUsuarios {
         }
         return lista;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "hospital_actualizacion")
+    public Actualizacion_Hospital hospital_actualizacion(@WebParam(name = "hospital") String hospital) {
+        ActualizarService act=new ActualizarService();
+        Actualizacion_Hospital act_hospital=act.ultimaActualizacion(hospital);
+        return act_hospital;
+    }
+    
+    
     
     
     

@@ -12,6 +12,10 @@
 
 <xs:element name="historialEntreFechasResponse" type="tns:historialEntreFechasResponse"/>
 
+<xs:element name="hospital_actualizacion" type="tns:hospital_actualizacion"/>
+
+<xs:element name="hospital_actualizacionResponse" type="tns:hospital_actualizacionResponse"/>
+
 <xs:element name="validarMedico" type="tns:validarMedico"/>
 
 <xs:element name="validarMedicoResponse" type="tns:validarMedicoResponse"/>
@@ -100,6 +104,25 @@
 <xs:complexType name="consultaPacienteResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:historialClinico" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="hospital_actualizacion">
+<xs:sequence>
+<xs:element name="hospital" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="hospital_actualizacionResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:actualizacionHospital" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="actualizacionHospital">
+<xs:sequence>
+<xs:element name="fecha" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:int" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

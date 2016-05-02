@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.ws.WebServiceRef;
+import webservices.ActualizacionHospital;
 import webservices.Medico;
 import webservices.WsGestionUsuarios_Service;
 
@@ -43,11 +44,13 @@ public class SAutentificacion extends HttpServlet {
         String hospital=request.getParameter("cboHospital");
         int id=Integer.parseInt(id2);
         Medico medico= validarMedico(id, pass, hospital);
+        ActualizacionHospital act=hospitalActualizacion(hospital);
         
         if (medico !=null){
             HttpSession session=request.getSession();
             session.setAttribute("validMedico", medico);
             session.setAttribute("hospital", hospital);
+            session.setAttribute("actualizacionHospital", act);
             response.sendRedirect("ventanaMedico.jsp");
         }else{
             response.sendRedirect("index.jsp");
@@ -101,6 +104,13 @@ public class SAutentificacion extends HttpServlet {
         // If the calling of port operations may lead to race condition some synchronization is required.
         webservices.WsGestionUsuarios port = service.getWsGestionUsuariosPort();
         return port.validarMedico(id, password, hospital);
+    }
+
+    private ActualizacionHospital hospitalActualizacion(java.lang.String hospital) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        webservices.WsGestionUsuarios port = service.getWsGestionUsuariosPort();
+        return port.hospitalActualizacion(hospital);
     }
     
     

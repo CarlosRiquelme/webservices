@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.ws.WebServiceRef;
 import webservices.Actualizacion;
+import webservices.ActualizacionHospital;
 import webservices.WsGestionUsuarios_Service;
 
 /**
@@ -44,7 +45,9 @@ public class SActualizar extends HttpServlet {
         String hospital=(String) session.getAttribute("hospital");
         String timeout=(String)request.getParameter("txttiempo");
         List<Actualizacion> act=actualizar(timeout, hospital);
+        ActualizacionHospital act2=hospitalActualizacion(hospital);
         session.setAttribute("listadoactualizacion", act);
+        session.setAttribute("actualizacionHospital", act2);
         response.sendRedirect("listado_actualizacion.jsp");
  
     }
@@ -94,5 +97,13 @@ public class SActualizar extends HttpServlet {
         webservices.WsGestionUsuarios port = service.getWsGestionUsuariosPort();
         return port.actualizar(timeout, hospital);
     }
+
+    private ActualizacionHospital hospitalActualizacion(java.lang.String hospital) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        webservices.WsGestionUsuarios port = service.getWsGestionUsuariosPort();
+        return port.hospitalActualizacion(hospital);
+    }
+    
 
 }
