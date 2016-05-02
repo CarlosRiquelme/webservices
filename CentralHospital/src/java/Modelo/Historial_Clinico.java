@@ -20,6 +20,17 @@ public class Historial_Clinico {
     private String diagnostico;
     private String sintomas;
     private String enfermedad;
+    private String enviado;
+
+    public String getEnviado() {
+        return enviado;
+    }
+
+    public void setEnviado(String enviado) {
+        this.enviado = enviado;
+    }
+    
+    
 
     public Integer getId() {
         return id;

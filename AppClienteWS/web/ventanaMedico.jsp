@@ -52,7 +52,7 @@
         <form action="SActualizar">
            <table border="0">
                 <tr>
-                    <td>Tiempo ml: </td>
+                    <td>timeout ml: </td>
                     <td><input type="text" name="txttiempo" value="" /></td>
                 </tr>
                 <tr>

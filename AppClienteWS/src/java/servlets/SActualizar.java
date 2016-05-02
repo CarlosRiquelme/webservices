@@ -15,16 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.ws.WebServiceRef;
-import webservices.HistorialClinico;
-import webservices.Medico;
+import webservices.Actualizacion;
 import webservices.WsGestionUsuarios_Service;
 
 /**
  *
  * @author toshiba
  */
-@WebServlet(name = "SConsultaHistorial", urlPatterns = {"/SConsultaHistorial"})
-public class SConsultaHistorial extends HttpServlet {
+@WebServlet(name = "SActualizar", urlPatterns = {"/SActualizar"})
+public class SActualizar extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/CentralHospital/WsGestionUsuarios.wsdl")
     private WsGestionUsuarios_Service service;
 
@@ -40,16 +39,14 @@ public class SConsultaHistorial extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-   
-        HttpSession session=request.getSession();
-        Medico medico= (Medico) session.getAttribute("validMedico");
-        String hospital=(String) session.getAttribute("hospital");
-        String fechaInicio=(String)request.getParameter("txtfecha_inicio");
-        String fechaFin=(String)request.getParameter("txtfecha_fin");
-        List<HistorialClinico> historial=historialEntreFechas(fechaInicio,fechaFin,hospital);
-        session.setAttribute("listaEntreFecha", historial);
-        response.sendRedirect("listado_entreFechas.jsp");
         
+        HttpSession session=request.getSession();
+        String hospital=(String) session.getAttribute("hospital");
+        String timeout=(String)request.getParameter("txttiempo");
+        List<Actualizacion> act=actualizar(timeout, hospital);
+        session.setAttribute("listadoactualizacion", act);
+        response.sendRedirect("listado_actualizacion.jsp");
+ 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -91,11 +88,11 @@ public class SConsultaHistorial extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private java.util.List<webservices.HistorialClinico> historialEntreFechas(java.lang.String fechaInicio, java.lang.String fechaFin, java.lang.String hospital) {
+    private java.util.List<webservices.Actualizacion> actualizar(java.lang.String timeout, java.lang.String hospital) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         webservices.WsGestionUsuarios port = service.getWsGestionUsuariosPort();
-        return port.historialEntreFechas(fechaInicio, fechaFin, hospital);
+        return port.actualizar(timeout, hospital);
     }
 
 }

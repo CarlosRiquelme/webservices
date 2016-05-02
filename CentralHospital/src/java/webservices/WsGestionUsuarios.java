@@ -5,10 +5,13 @@
  */
 package webservices;
 
+import Connection.ActualizarService;
 import Connection.ConsultasDB;
+import Modelo.Actualizacion;
 import Modelo.Historial_Clinico;
 import Modelo.Medico;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,6 +71,24 @@ public class WsGestionUsuarios {
          historial=consulta.consultaHistorialFechas(fechaInicio, fechaFin,hospital);
          return historial;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "actualizar")
+    public List<Actualizacion> actualizar(@WebParam(name = "timeout") String timeout, @WebParam(name = "hospital") String hospital) {
+        ArrayList<Actualizacion> lista =null;
+        try {
+            ActualizarService act= new ActualizarService();
+            String estado=act.ConsultaMaestro(timeout, hospital);
+            lista =   (ArrayList<Actualizacion>) act.GuardarActualizacion(estado, hospital);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(WsGestionUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+    
     
     
 

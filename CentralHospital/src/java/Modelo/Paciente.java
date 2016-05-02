@@ -14,6 +14,15 @@ public class Paciente {
     
     private Integer id;
     private String nombre;
+    private String enviado;
+
+    public String getEnviado() {
+        return enviado;
+    }
+
+    public void setEnviado(String enviado) {
+        this.enviado = enviado;
+    }
 
     public Integer getId() {
         return id;

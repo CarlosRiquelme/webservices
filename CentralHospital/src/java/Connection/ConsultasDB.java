@@ -24,34 +24,6 @@ import org.json.JSONArray;
  */
 public class ConsultasDB {
     
-    public static JSONArray ConsultaMaestro() throws SQLException
-    {
-        String servidor = "jdbc:postgresql://localhost/WSDistri";
-        
-        Connection miConexion = ConnectionDB.GetConnection(servidor);
-                
-        System.out.println("Mi conexion: "+miConexion);
-        ArrayList<Hospital> lista = new ArrayList(); 
-        JSONArray array=null;
-        String formatoJSON=""; 
-        if(miConexion != null){
-            Statement s = miConexion.createStatement(); 
-            ResultSet rs = s.executeQuery ("select * from hospital");
-            boolean isRecord = false;
-            
-            
-            while (rs.next()){       
-                Hospital hospital=new Hospital();
-                hospital.setId(rs.getInt("id"));
-                hospital.setNombre(rs.getString("nombre"));
-                lista.add(hospital);
-                isRecord = true;
-              
-            }
-          array = new JSONArray(lista);    
-        }
-        return array;
-    }
     
     public  Medico verificarMedico(int id, String password, String hospital) throws SQLException
     {
@@ -191,9 +163,7 @@ public class ConsultasDB {
             }
        
         }
-        return lista;
-        
-        
+        return lista;      
     }
     
     

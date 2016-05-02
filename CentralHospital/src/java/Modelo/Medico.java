@@ -14,6 +14,16 @@ public class Medico {
     private String nombre;
     private String password;
     private String hospital;
+    
+    private String enviado;
+
+    public String getEnviado() {
+        return enviado;
+    }
+
+    public void setEnviado(String enviado) {
+        this.enviado = enviado;
+    }
 
     public String getHospital() {
         return hospital;
